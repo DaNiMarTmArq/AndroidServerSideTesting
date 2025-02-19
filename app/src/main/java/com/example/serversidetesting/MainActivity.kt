@@ -13,18 +13,27 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.firebase.Firebase
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.analytics
+import com.google.firebase.analytics.logEvent
+import kotlin.math.log
 
 class MainActivity : ComponentActivity() {
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        firebaseAnalytics = Firebase.analytics
+        firebaseAnalytics.logEvent("Adios") {}
+        firebaseAnalytics.logEvent("Adios") {}
         setContent {
-            MyApp()
+            MyApp(firebaseAnalytics)
         }
     }
 }
 
 @Composable
-fun MyApp() {
+fun MyApp(fb: FirebaseAnalytics) {
     var clickCount by remember { mutableStateOf(0) }
 
     Box(
@@ -38,7 +47,9 @@ fun MyApp() {
             verticalArrangement = Arrangement.Center
         ) {
             Button(
-                onClick = { clickCount++ },
+                onClick = { clickCount++
+                    logButtonClick(fb)
+                          },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF1AFD0)), // Pink color
                 shape = RoundedCornerShape(20.dp), // Rounded edges
                 modifier = Modifier
@@ -56,5 +67,12 @@ fun MyApp() {
                 fontWeight = FontWeight.Bold
             )
         }
+    }
+}
+
+fun logButtonClick(fb: FirebaseAnalytics) {
+    fb.logEvent("Clicked") {
+        param("Prueba", 1)
+        param("button_name", "Click Me")
     }
 }
