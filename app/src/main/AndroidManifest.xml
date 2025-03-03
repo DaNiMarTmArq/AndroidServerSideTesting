@@ -25,17 +25,17 @@
         </activity>
 
 
-  <activity
-      android:name="com.google.firebase.analytics.GoogleAnalyticsServerPreviewActivity"
-      android:exported="true"
-      android:noHistory="true" >
-    <intent-filter>
-      <action android:name="android.intent.action.VIEW" />
-      <category android:name="android.intent.category.DEFAULT" />
-      <category android:name="android.intent.category.BROWSABLE" />
-      <data android:scheme="tagmanager.sgtm.c.com.example.serversidetesting" />
-    </intent-filter>
-  </activity>
+      <activity
+          android:name="com.google.firebase.analytics.GoogleAnalyticsServerPreviewActivity"
+          android:exported="true"
+          android:noHistory="true" >
+        <intent-filter>
+          <action android:name="android.intent.action.VIEW" />
+          <category android:name="android.intent.category.DEFAULT" />
+          <category android:name="android.intent.category.BROWSABLE" />
+          <data android:scheme="tagmanager.sgtm.c.com.example.serversidetesting" />
+        </intent-filter>
+      </activity>
 
 
   <meta-data android:name="google_analytics_sgtm_upload_enabled" android:value="true" />

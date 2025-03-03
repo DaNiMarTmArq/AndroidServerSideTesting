@@ -17,15 +17,13 @@ import com.google.firebase.Firebase
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.analytics
 import com.google.firebase.analytics.logEvent
-import kotlin.math.log
 
 class MainActivity : ComponentActivity() {
     private lateinit var firebaseAnalytics: FirebaseAnalytics
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         firebaseAnalytics = Firebase.analytics
-        firebaseAnalytics.logEvent("Adios") {}
-        firebaseAnalytics.logEvent("Adios") {}
+        firebaseAnalytics.logEvent("on_create") {}
         setContent {
             MyApp(firebaseAnalytics)
         }
@@ -34,7 +32,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyApp(fb: FirebaseAnalytics) {
-    var clickCount by remember { mutableStateOf(0) }
+    var clickCount by remember { mutableIntStateOf(0)  }
 
     Box(
         modifier = Modifier
@@ -47,11 +45,12 @@ fun MyApp(fb: FirebaseAnalytics) {
             verticalArrangement = Arrangement.Center
         ) {
             Button(
-                onClick = { clickCount++
+                onClick = {
+                    clickCount++
                     logButtonClick(fb)
                           },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF1AFD0)), // Pink color
-                shape = RoundedCornerShape(20.dp), // Rounded edges
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF1AFD0)),
+                shape = RoundedCornerShape(20.dp),
                 modifier = Modifier
                     .width(150.dp)
                     .height(50.dp)
@@ -71,8 +70,8 @@ fun MyApp(fb: FirebaseAnalytics) {
 }
 
 fun logButtonClick(fb: FirebaseAnalytics) {
-    fb.logEvent("Clicked") {
-        param("Prueba", 1)
-        param("button_name", "Click Me")
+    fb.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT) {
+        param("content_type", "button")
+        param("content_id", "click me")
     }
 }
