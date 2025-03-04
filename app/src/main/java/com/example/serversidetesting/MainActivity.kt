@@ -23,10 +23,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         firebaseAnalytics = Firebase.analytics
-        firebaseAnalytics.logEvent("on_create") {}
         setContent {
             MyApp(firebaseAnalytics)
         }
+        firebaseAnalytics.setUserProperty("club_member", "gold")
+        firebaseAnalytics.logEvent("on_create") {}
     }
 }
 
@@ -55,7 +56,7 @@ fun MyApp(fb: FirebaseAnalytics) {
                     .width(150.dp)
                     .height(50.dp)
             ) {
-                Text("Click Me", color = Color.White)
+                Text("Click me", color = Color.White)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
